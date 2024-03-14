@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,19 +23,16 @@ public class Member {
     @Column(length = 20)
     private String session;
 
-    @Column(length = 20)
-    private String address;
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Band band;
 
 
-    // 멤버가 있고, 세션이 있고, 벤드가 있고,
-    // 어디서부터 어디까지가 도메인이야 ㅅㅂ
-    // ERD 설계부터 제대로 해야함..
-    // 공연장도 domain?
-    // 멤버가 세션을 선택히면, 세션도 DB에 들어갈것
 
+    // 내가 하고 싶은게 뭐야
+    // 음악인을 위한 종합 플랫폼 개발
+    // workBench로 ERD 그리는 법 배워야함
 
-    //지역별 분류? 대학 별 분류? 어디서 부터 어디까지를 DB에 저장할 값으로 잡아야...
-    //
 
 
 
