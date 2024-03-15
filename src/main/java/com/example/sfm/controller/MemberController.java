@@ -19,7 +19,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @Transactional
-    @PostMapping("/members/find")
+    @PostMapping("api/v1/members/find")
     public ResponseEntity<String> memberFind(@RequestBody Long memberId) {
         String memberName = memberService.findMember(memberId);
         System.out.println("memberName=" +memberName);
