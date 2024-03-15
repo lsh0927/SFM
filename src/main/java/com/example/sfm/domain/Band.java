@@ -1,18 +1,21 @@
 package com.example.sfm.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity@Getter@Setter
 public class Band {
     @Id
     @GeneratedValue
-    private Long id;
+    @Column(name = "bnad_id")
+    private Long bandId;
 
 
-    @Column(name = "BAND_NAME")
+    @Column(name = "band_name")
     private String bandName;
 
 
