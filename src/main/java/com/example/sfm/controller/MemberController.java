@@ -2,35 +2,30 @@ package com.example.sfm.controller;
 
 import com.example.sfm.domain.Member;
 import com.example.sfm.repository.MemberRepository;
+import com.example.sfm.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberRepository memberRepository;
-
-    @Transactional
-    @PostMapping("/members/save")
-    public ResponseEntity<String> memberSave(@RequestBody Member member){
-        Member savedMember = memberRepository.save(member);
-        System.out.println("Saved Member: " + savedMember);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Member saved successfully");
-    }
+    private final MemberService memberService;
 
     @Transactional
     @PostMapping("/members/find")
-    public ResponseEntity<String> memberFind(@RequestBody Long id){
-        Optional<Member> memberId = memberRepository.findById(id);
-        System.out.println("Saved Member.id: " + memberId);
+    public ResponseEntity<String> memberFind(@RequestBody Long memberId) {
+        String memberName = memberService.findMember(memberId);
+        System.out.println("memberName=" +memberName);
         return ResponseEntity.status(HttpStatus.CREATED).body("MemberId find successfully");
     }
+
+
+
 }
