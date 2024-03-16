@@ -25,7 +25,7 @@ public class BandService {
     }
 
     private boolean validateDuplicateBand(Band band) {
-        if (bandRepository.existsByName(band.getBandName())){
+        if (bandRepository.existsById(band.getBandId())){
             throw new RuntimeException("same name exists");
         }
         else {

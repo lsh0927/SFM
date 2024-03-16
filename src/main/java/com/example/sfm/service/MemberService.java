@@ -15,10 +15,10 @@ public class MemberService {
 
     private MemberRepository memberRepository;
 
+
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-
 
     @Transactional
     public void createMember(Member member){
@@ -28,7 +28,7 @@ public class MemberService {
     }
 
     private boolean validateDuplicateMember(Member member) {
-        if (memberRepository.existsByName(member.getName())){
+        if (!memberRepository.existsByName(member.getName())){
             throw new RuntimeException("same name exists");
         }
         else {
@@ -38,9 +38,7 @@ public class MemberService {
 
     @Transactional
     public String findMember(Long memberId){
-        Member member= memberRepository.findById(memberId)
-                .orElseThrow(()-> new RuntimeException("USER_NOT_FOUND"));
-
+        Member member= memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("MEMBER_NOT_FOUND"));
         return member.getName();
     }
 
