@@ -21,8 +21,8 @@ public class MemberController {
     @Transactional
     @PostMapping("api/v1/members/find")
     public ResponseEntity<String> memberFind(@RequestBody Long memberId) {
-        String memberName = memberService.findMember(memberId);
-        System.out.println("memberName=" +memberName);
+        Member findMember = memberService.findOne(memberId);
+        System.out.println("memberName=" +findMember.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body("MemberId find successfully");
     }
 

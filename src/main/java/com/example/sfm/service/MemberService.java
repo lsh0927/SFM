@@ -37,13 +37,6 @@ public class MemberService {
 
     }
 
-  //  @Transactional
-    public List<Member> findMember(Long memberId){
-//        Member member= memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("MEMBER_NOT_FOUND"));
-//        return member.getName();
-
-        return memberRepository.findAll();
-    }
  //   @Transactional
     public Member findOne(Long memberId){
         return memberRepository.findById(memberId).get();
