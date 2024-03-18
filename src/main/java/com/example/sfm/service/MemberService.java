@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,43 +22,46 @@ public class MemberService {
     }
 
     @Transactional
-    public void createMember(Member member){
-        if (validateDuplicateMember(member))
+    public Long join(Member member){
+        validateDuplicateMember(member);
         memberRepository.save(member);
+        return member.getMemberId();
+    }
+
+    private void validateDuplicateMember(Member member) {
+       List<Member> findMembers= memberRepository.findByName(member.getName());
+       if (!findMembers.isEmpty()){
+           throw new RuntimeException("이미 존재하는 회원입니다");
+
+       }
 
     }
 
-    private boolean validateDuplicateMember(Member member) {
-        if (!memberRepository.existsByName(member.getName())){
-            throw new RuntimeException("same name exists");
-        }
-        else {
-            return true;
-        }
-    }
+  //  @Transactional
+    public List<Member> findMember(Long memberId){
+//        Member member= memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("MEMBER_NOT_FOUND"));
+//        return member.getName();
 
-    @Transactional
-    public String findMember(Long memberId){
-        Member member= memberRepository.findById(memberId).orElseThrow(()-> new RuntimeException("MEMBER_NOT_FOUND"));
-        return member.getName();
+        return memberRepository.findAll();
+    }
+ //   @Transactional
+    public Member findOne(Long memberId){
+        return memberRepository.findById(memberId).get();
     }
 
 
     @Transactional
     public void updateMember(Long memberId, String newMemberName){
-        Member member = memberRepository.findById(memberId).orElseThrow(
-                () -> new RuntimeException("USER_NOT_FOUND"));
+        Member member = memberRepository.findById(memberId).get();
         member.setName(newMemberName);
-        memberRepository.save(member);
     }
 
 
     @Transactional
     public void deleteMember(Long memberId){
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("USER_NOT_FOUND"));
-
+        Member member = memberRepository.findById(memberId).get();
         memberRepository.deleteById(member.getMemberId());
+
     }
 
 
