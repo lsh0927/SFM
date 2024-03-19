@@ -8,17 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity@Getter@Setter
-@Table(name = "bands")
 public class Band {
     @Id
     @GeneratedValue
-    @Column(name = "bnad_id")
+    @Column(name = "band_id")
     private Long bandId;
 
-
-    @Column(name = "band_name")
     private String bandName;
-
 
     @OneToMany(mappedBy = "band")
     private List<Member> members= new ArrayList<>();

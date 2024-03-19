@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns: th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <form action="/members/new" method="post">
+        <div class="form-group">
+            <label for="name">이름</label>
+            <!-- memberId name session band-->
+            <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+            <input type="text" id="session" name="session" placeholder="세션명을 입력하세요">
+
+        </div>
+        <button class="btn" type="submit">등록</button>
+    </form>
+</div>
+</body>
+</html>
+
+</script>
+
+
+<!--form 태그 안 input 태그 -> form태그가 해당 안의 내용을 전달하는 기능-->
+<!--action으로 Url을 전달하고 그 메서드 형식을 post로 지정함-->
+<!--url 주소로 전달 되는 것이 get방식-->
+
+<!--전달될 내용 iuput태그 안에 name="name" 이부분을 통해 정보가 넘어감-->

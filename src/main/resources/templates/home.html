@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 새로운 방식 - Recommended -->
+<head th:replace="~{fragments/header :: header}">
+  <title>사이트 홈</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader" />
+  <div class="jumbotron">
+    <h1>플랫폼</h1>
+    <p class="lead">음악인들을 위한 공간</p>
+      <a href="/login/kakao" class="button">카카오 로그인</a>
+    </p>
+      <a href="/login/naver" class="button">네이버 로그인</a>
+    </p>
+    </p>
+
+  </div>
+  <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

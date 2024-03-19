@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns: th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members}">
+      <td th:text="${member.memberId}"></td>
+      <td th:text="${member.name}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+
+<!--타임리프 문법-->
+<!--th:each를 통해 값이 있을 시 반복하여 생성,-->
+<!--${} 안의 members기준으로 addAttribute로 전달된 값 리스트들이 마지막이 될때까지 반복하여 생성-->
+<!--id의 경우 자동으로 숫자가 늘어남-->

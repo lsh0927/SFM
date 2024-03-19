@@ -1,25 +1,18 @@
 package com.example.sfm.service;
 
 import com.example.sfm.domain.Member;
-import com.example.sfm.repository.BandRepository;
 import com.example.sfm.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MemberService {
 
     private MemberRepository memberRepository;
-
-
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     @Transactional
     public Long join(Member member){
@@ -29,10 +22,9 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-       List<Member> findMembers= memberRepository.findByName(member.getName());
+        List<Member> findMembers= memberRepository.findByName(member.getName());
        if (!findMembers.isEmpty()){
            throw new RuntimeException("이미 존재하는 회원입니다");
-
        }
 
     }
@@ -42,11 +34,15 @@ public class MemberService {
         return memberRepository.findById(memberId).get();
     }
 
+    public List<Member> findAll(){
+        return memberRepository.findAll();
+    }
+
 
     @Transactional
-    public void updateMember(Long memberId, String newMemberName){
-        Member member = memberRepository.findById(memberId).get();
-        member.setName(newMemberName);
+    public void updateMemberName(Long memberId, Member member){
+        Member findMember = memberRepository.findById(memberId).get();
+        member.setName(findMember.getName());
     }
 
 

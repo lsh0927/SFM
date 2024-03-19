@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.image.BaseMultiResolutionImage;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,17 +19,17 @@ public class BandService {
 
 
     @Transactional
-    public Long createBand(Band band){
+    public void join(Band band){
         validateDuplicateBand(band);
         bandRepository.save(band);
-        return band.getBandId();
+
     }
 
     private void validateDuplicateBand(Band band) {
         List<Band> bandNamelist = bandRepository.findByBandName(band.getBandName());
         if (!bandNamelist.isEmpty())
         {
-            throw new RuntimeException("이미 존재하는 밴드명입니다");
+            throw new RuntimeException("이미 존재하는 밴드 명입니다");
         }
 
     }
@@ -46,9 +47,8 @@ public class BandService {
 
     }
     @Transactional
-    public void deleteBand(Band band){
-        Band deleteband = bandRepository.findById(band.getBandId()).get();
-        bandRepository.delete(deleteband);
-
+    public void deleteBand(Long bandId){
+        Optional<Band> band = bandRepository.findById(bandId);
+        bandRepository.deleteById(band.get().getBandId());
     }
 }
