@@ -1,6 +1,7 @@
 package com.example.sfm.service;
 
 import com.example.sfm.domain.Band;
+import com.example.sfm.domain.Member;
 import com.example.sfm.repository.BandRepository;
 import com.example.sfm.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,9 @@ public class BandService {
 
     private BandRepository bandRepository;
 
+    public BandService(BandRepository bandRepository) {
+        this.bandRepository = bandRepository;
+    }
 
     @Transactional
     public void join(Band band){
@@ -46,6 +50,11 @@ public class BandService {
         band.setBandName(newBandName);
 
     }
+
+    public List<Band> findAll(){
+        return bandRepository.findAll();
+    }
+
     @Transactional
     public void deleteBand(Long bandId){
         Optional<Band> band = bandRepository.findById(bandId);

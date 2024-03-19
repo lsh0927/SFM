@@ -13,7 +13,6 @@ public class Band {
     @GeneratedValue
     @Column(name = "band_id")
     private Long bandId;
-
     private String bandName;
 
     @OneToMany(mappedBy = "band")
