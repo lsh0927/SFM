@@ -54,6 +54,6 @@ public class MemberService {
     }
 
 
-    public void updateEmail(Long currentMemberId, String userEmail) {
+    public void updateEmail(String userEmail) {
     }
 }

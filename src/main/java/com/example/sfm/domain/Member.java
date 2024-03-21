@@ -21,6 +21,9 @@ public class Member {
     @Column(length = 20)
     private String session;
 
+    @Column(length = 50)
+    private String email;
+
     @ManyToOne
     @JoinColumn(name = "band_id")
     private Band band;

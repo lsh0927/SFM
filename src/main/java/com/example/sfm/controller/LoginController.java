@@ -81,9 +81,9 @@ public class LoginController {
          */
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String page(Model model) {
-        return "home"; // 로그인 폼 템플릿 이름
+        return "index"; // 로그인 폼 템플릿 이름
     }
 
 
