@@ -54,6 +54,9 @@ dependencies {
     //민감한 정보 암호화
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
 
+    //Jpa로 세션 테이블 자동 생성
+    implementation('org.springframework.session:spring-session-jdbc')
+
 }
 
 tasks.named('test') {

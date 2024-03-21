@@ -1,0 +1,52 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Dashboard</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Welcome to Dashboard</h1>-->
+<!--<p>Logged in as: <span th:text="${session.nickname}"></span></p> &lt;!&ndash; Display nickname from session &ndash;&gt;-->
+<!--<div th:if="${session.isBandMember != null && session.isBandMember}">-->
+<!--    <p>You are currently a member of a band.</p>-->
+<!--</div>-->
+<!--<div th:unless="${session.isBandMember != null && session.isBandMember}">-->
+<!--    <p>You are not currently a member of any band.</p>-->
+<!--</div>-->
+<!--<form action="/logout" method="POST"> &lt;!&ndash; Logout form &ndash;&gt;-->
+<!--    <input type="submit" value="Logout">-->
+<!--</form>-->
+<!--<button onclick="location.href='/specific-url'">Go to Specific URL</button> &lt;!&ndash; Button to go to specific URL &ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Welcome to Dashboard</h1>
+<p>Logged in as: <span th:text="${session.nickname}"></span></p> <!-- Display nickname from session -->
+<div th:if="${session.isBandMember != null && session.isBandMember}">
+    <p>You are currently a member of a band.</p>
+</div>
+<div th:unless="${session.isBandMember != null && session.isBandMember}">
+    <p>You are not currently a member of any band. Would you like to join a band?</p>
+    <form action="/login/band-join-request" method="POST"> <!-- Band join request form -->
+        <input type="submit" value="Join a Band">
+    </form>
+</div>
+<p>Would you like to register the instruments you play?</p>
+<form action="/login/register-instruments" method="POST"> <!-- Register instruments form -->
+    <input type="submit" value="Register Instruments">
+</form>
+<form action="/logout" method="POST"> <!-- Logout form -->
+    <input type="submit" value="Logout">
+</form>
+<button onclick="location.href='/specific-url'">Go to Specific URL</button> <!-- Button to go to specific URL -->
+</body>
+</html>

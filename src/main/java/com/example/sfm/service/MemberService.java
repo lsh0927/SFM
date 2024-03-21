@@ -23,6 +23,9 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers= memberRepository.findByName(member.getName());
+        Member findEmail= memberRepository.findByEmail(member.getEmail());
+
+        //합쳐서 비교하는 로직 수정 필요
        if (!findMembers.isEmpty()){
            throw new RuntimeException("이미 존재하는 회원입니다");
        }
@@ -33,7 +36,6 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findById(memberId).get();
     }
-
     public List<Member> findAll(){
         return memberRepository.findAll();
     }
@@ -55,5 +57,10 @@ public class MemberService {
 
 
     public void updateEmail(String userEmail) {
+    }
+
+
+    public Member findMemberById(String userId) {
+        return memberRepository.findByEmail(userId);
     }
 }

@@ -58,6 +58,14 @@ public class MemberController {
         // 찾은 멤버들을 members라고 지정된 곳에 해당 list 전달
     }
 
+    //@GetMapping으로 url이 왔을 때 보여줄 웹 페이지
+    @PostMapping("/register-instruments")
+    public String registerInstruments() {
+        // 악기 등록 처리 로직 작성
 
+        System.out.println(" 악기 등록 처리 로직 확인");
+
+        return "redirect:/dashboard"; // 혹은 다른 적절한 리다이렉션 경로
+    }
 
 }

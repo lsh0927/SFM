@@ -60,4 +60,11 @@ public class BandService {
         Optional<Band> band = bandRepository.findById(bandId);
         bandRepository.deleteById(band.get().getBandId());
     }
+
+    public boolean isUserBandMember(Member member) {
+        return false;
+    }
+
+    public void joinBand(Member member) {
+    }
 }
