@@ -2,6 +2,9 @@ package com.example.sfm.controller;
 import com.example.sfm.domain.Member;
 import com.example.sfm.repository.MemberRepository;
 import com.example.sfm.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,7 @@ import java.util.List;
 
 
 @Controller
+@RequestMapping("login")
 public class MemberController {
 
     private final MemberService memberService;
@@ -59,13 +63,32 @@ public class MemberController {
     }
 
     //@GetMapping으로 url이 왔을 때 보여줄 웹 페이지
+    @GetMapping("/register-instruments")
+    public String goInstrumentsJoinPage(){
+        return "session/createSession";
+    }
     @PostMapping("/register-instruments")
-    public String registerInstruments() {
+    public String registerInstruments(@RequestParam("instrument") String instrument, HttpSession session) {
         // 악기 등록 처리 로직 작성
 
-        System.out.println(" 악기 등록 처리 로직 확인");
+        // 세션에서 회원의 식별자(예: 이메일)를 가져온다
+        String userEmail = (String) session.getAttribute("email");
 
-        return "redirect:/dashboard"; // 혹은 다른 적절한 리다이렉션 경로
+        // 가져온 회원의 식별자를 사용하여 데이터베이스에서 해당 회원의 정보를 가져온다
+        Member member = memberService.findMemberByEmail(userEmail);
+        member.setSession(instrument);
+
+        System.out.println(member.getName());
+        System.out.println(member.getEmail());
+        System.out.println(member.getSession());
+
+        // 악기 정보를 회원의 정보에 업데이트한다
+     //   memberService.updateMember(member);
+
+        System.out.println("선택된 악기: " + instrument);
+        //memberService.updateSession(instrument,session);
+
+        return "redirect:/homepage"; // 혹은 다른 적절한 리다이렉션 경로
     }
 
 }
