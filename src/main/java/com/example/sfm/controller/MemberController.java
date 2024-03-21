@@ -76,19 +76,17 @@ public class MemberController {
 
         // 가져온 회원의 식별자를 사용하여 데이터베이스에서 해당 회원의 정보를 가져온다
         Member member = memberService.findMemberByEmail(userEmail);
-        member.setSession(instrument);
 
-        System.out.println(member.getName());
-        System.out.println(member.getEmail());
-        System.out.println(member.getSession());
+//        System.out.println(member.getName());
+//        System.out.println(member.getEmail());
+//        System.out.println(member.getSession());
 
         // 악기 정보를 회원의 정보에 업데이트한다
-     //   memberService.updateMember(member);
+        memberService.updateMemberSession(member,instrument);
 
-        System.out.println("선택된 악기: " + instrument);
-        //memberService.updateSession(instrument,session);
+//        System.out.println("선택된 악기: " + instrument);
 
-        return "redirect:/homepage"; // 혹은 다른 적절한 리다이렉션 경로
+        return "homepage"; // 혹은 다른 적절한 리다이렉션 경로
     }
 
 }

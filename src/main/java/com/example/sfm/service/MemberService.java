@@ -76,6 +76,13 @@ public class MemberService {
         return memberRepository.findByEmail(userEmail);
     }
 
+    @Transactional
+    public void updateMemberSession(Member member, String instrument) {
+
+        member.setSession(instrument);
+        memberRepository.save(member);
+    }
+
 //    public void updateMember(Member member) {
 //        memberRepository.
 //    }
