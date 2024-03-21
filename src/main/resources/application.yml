@@ -1,4 +1,14 @@
 spring:
+  thymeleaf:
+    prefix:
+      - classpath:/static
+      - classpath:/templates
+      - classpath:/templates/thymeleaf/
+
+    suffix: .html
+    mode: HTML
+    cache: false
+    check-template-location: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/music?serverTimezone=Asia/Seoul
