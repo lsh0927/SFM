@@ -36,12 +36,12 @@
 </div>
 <div th:unless="${session.isBandMember != null && session.isBandMember}">
     <p>You are not currently a member of any band. Would you like to join a band?</p>
-    <form action="/login/band-join-request" method="POST"> <!-- Band join request form -->
+    <form action="/login/band-join-request" method="GET"> <!-- Band join request form -->
         <input type="submit" value="Join a Band">
     </form>
 </div>
 <p>Would you like to register the instruments you play?</p>
-<form action="/login/register-instruments" method="POST"> <!-- Register instruments form -->
+<form action="/login/register-instruments" method="GET"> <!-- Register instruments form -->
     <input type="submit" value="Register Instruments">
 </form>
 <form action="/logout" method="POST"> <!-- Logout form -->

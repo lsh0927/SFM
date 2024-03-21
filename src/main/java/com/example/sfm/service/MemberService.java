@@ -2,6 +2,7 @@ package com.example.sfm.service;
 
 import com.example.sfm.domain.Member;
 import com.example.sfm.repository.MemberRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,4 +64,19 @@ public class MemberService {
     public Member findMemberById(String userId) {
         return memberRepository.findByEmail(userId);
     }
+
+
+    @Transactional
+    public void updateSession(String instrument, HttpSession session) {
+        //멤버의 세션을 업데이트
+        //  memberRepository.updateSession(instrument);
+    }
+
+    public Member findMemberByEmail(String userEmail) {
+        return memberRepository.findByEmail(userEmail);
+    }
+
+//    public void updateMember(Member member) {
+//        memberRepository.
+//    }
 }
