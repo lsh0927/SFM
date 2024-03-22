@@ -10,6 +10,13 @@
 <form action="/login/band-join-request" method="POST">
     <label for="bandName">Band Name:</label>
     <input type="text" id="bandName" name="band" required>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role">
+        <option value="LEADER">Band Leader</option>
+        <option value="MEMBER">Band Member</option>
+    </select>
+
     <br>
     <input type="submit" value="Join Band">
 </form>

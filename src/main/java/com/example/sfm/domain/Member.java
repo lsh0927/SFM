@@ -28,5 +28,7 @@ public class Member {
     @JoinColumn(name = "band_id")
     private Band band;
 
-
+    //밴드에서의 역할: 밴드장, 밴드원
+    @Enumerated(EnumType.STRING)
+    private BandRole bandRole;
 }

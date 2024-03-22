@@ -1,16 +1,8 @@
 package com.example.sfm.controller;
 import com.example.sfm.domain.Member;
-import com.example.sfm.repository.MemberRepository;
 import com.example.sfm.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,7 +53,7 @@ public class MemberController {
         // 악기 정보를 회원의 정보에 업데이트한다
         memberService.updateMemberSession(member,instrument);
 
-        return "homepage"; // 혹은 다른 적절한 리다이렉션 경로
+        return "SFMHomepage"; // 혹은 다른 적절한 리다이렉션 경로
     }
 
 }

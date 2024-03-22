@@ -2,16 +2,13 @@ package com.example.sfm.controller;
 
 import com.example.sfm.domain.Band;
 
+import com.example.sfm.domain.BandRole;
 import com.example.sfm.domain.Member;
 import com.example.sfm.service.BandService;
 import com.example.sfm.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,7 +26,9 @@ public class BandController {
     }
 
     @PostMapping("/band-join-request")
-    public String bandJoinRequest(@RequestParam("band") String band, HttpSession session) {
+    public String bandJoinRequest(@RequestParam("band") String band,
+                                  @RequestParam("role") String roleStr,
+                                  HttpSession session) {
 
         // 세션에서 회원의 식별자를 가져온다
         String userEmail = (String) session.getAttribute("email");
@@ -39,7 +38,11 @@ public class BandController {
 
         Band newBand= new Band();
         newBand.setBandName(band);
-
+        //밴드에서의 역할도 설정
+        // html에서 String으로 받은 값을 자동으로 enum타입으로 변환하는 방법은 복잡하므로,
+        // 메서드 내에서 직접 변환
+        BandRole role = BandRole.valueOf(roleStr.toUpperCase());
+        member.setBandRole(role);
         // 악기 정보를 회원의 정보에 업데이트한다
         bandService.join(newBand);
         memberService.updateMemberBand(member,newBand);
@@ -48,6 +51,6 @@ public class BandController {
 
 
 
-        return "homepage";
+        return "SFMHomepage";
     }
 }
