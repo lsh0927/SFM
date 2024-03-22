@@ -67,11 +67,6 @@ public class MemberService {
     }
 
 
-    @Transactional
-    public void updateSession(String instrument, HttpSession session) {
-        //멤버의 세션을 업데이트
-        //  memberRepository.updateSession(instrument);
-    }
 
     public Member findMemberByEmail(String userEmail) {
         return memberRepository.findByEmail(userEmail);

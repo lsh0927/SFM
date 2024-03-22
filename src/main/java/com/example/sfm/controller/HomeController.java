@@ -74,8 +74,6 @@ public class HomeController {
         System.out.println(s);
         //여기서 엑세스 토큰을 못받아옴...
         // 어케하지?
-        System.out.println(session);
-
         kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
 
         session.removeAttribute("accessToken");
