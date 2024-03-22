@@ -1,27 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<head>-->
-<!--	<meta charset="UTF-8">-->
-<!--	<title>Insert title here</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Kakao Login</h1>-->
-<!--<span th:if="${userId == null}">-->
-<!--    <a href="https://kauth.kakao.com/oauth/authorize?client_id=f784a80aaf1b8711ed87342e69f2ab2c&redirect_uri=http://localhost:8080/login&response_type=code">-->
-<!--			<img src = "img/kakao_login_medium_narrow.png">-->
-<!--		</a>-->
-<!--</span>-->
-
-<!--<span th:if="${userId != null}">-->
-<!--    <form name="logout" action="http://localhost:8080/logout" method="post">-->
-<!--        <input type="submit" value="로그아웃">-->
-<!--    </form>-->
-<!--</span>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,17 +7,40 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('/img/board.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         .container {
             text-align: center;
             animation: fadeIn 1s ease;
+            max-width: 800px; /* 화면을 더 넓게 사용 */
+            padding: 20px;
+        }
+        .intro {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
         h1 {
             color: #333;
@@ -50,10 +49,11 @@
             text-transform: uppercase;
         }
         img {
-            width: 200px;
+            width: 300px; /* 이미지 크기 조정 */
             height: auto;
             transition: transform 0.3s ease;
             cursor: pointer;
+            margin-bottom: 20px; /* 이미지 아래 여백 추가 */
         }
         img:hover {
             transform: scale(1.05);
@@ -83,6 +83,13 @@
 </head>
 <body>
 <div class="container">
+    <div class="intro">
+        <h2>종합 음악 플랫폼에 오신 것을 환영합니다!</h2>
+        <p>우리의 플랫폼은 음악가를 위한 최적의 장소입니다.
+            음악가라면 누구나 밴드에 참여하고 다른 아티스트와 협업하며 새로운 음악을 발견할 수 있습니다.
+            소셜 네트워킹 기능을 통해 커뮤니티를 형성할 수 있습니다.</p>
+        <p>지금 바로 가입하고 음악의 세계를 탐험해 보세요!</p>
+    </div>
     <h1>Kakao Login</h1>
     <span th:if="${userId == null}">
         <a href="https://kauth.kakao.com/oauth/authorize?client_id=f784a80aaf1b8711ed87342e69f2ab2c&redirect_uri=http://localhost:8080/login&response_type=code">

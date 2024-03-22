@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Band Management</title>
+  <title>밴드 관리 페이지</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-image: url('/img/board.jpg');
+      background-size: cover;
+      background-position: center;
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* 상단 정렬 */
+      min-height: 100vh;
     }
 
     h1, h2 {
@@ -65,25 +71,36 @@
   </style>
 </head>
 <body>
-<h1>Band Management Page</h1>
-<h2>Band Join Requests</h2>
-<ul>
-  <!-- 여기에 밴드 가입 요청 목록이 나열될 수 있습니다 -->
-  <li>
-    <span>Band Name: </span>
-    <span>User Name: </span>
-    <button onclick="acceptJoinRequest()">Accept</button>
-    <button onclick="rejectJoinRequest()">Reject</button>
-  </li>
-</ul>
+<div style="width: 80%;"> <!-- 가로폭 조정 -->
+  <h1>밴드 관리 페이지</h1>
+  <div style="display: flex; justify-content: space-between;"> <!-- 설명 위치 조정 -->
+    <div>
+      <h2>밴드 가입 요청</h2>
+      <ul>
+        <!-- 여기에 밴드 가입 요청 목록이 나열될 수 있습니다 -->
+        <li th:each="request : ${joinRequests}">
+          <span>밴드 이름: <span th:text="${bandName}"></span></span>
+          <span>사용자 이름: <span th:text="${request.}"></span></span>
+          <button onclick="acceptJoinRequest()">수락</button>
+          <button onclick="rejectJoinRequest()">거절</button>
+        </li>
+      </ul>
+    </div>
 
-<h2>Band Members</h2>
-<ul>
-  <!-- 여기에 밴드 멤버 목록이 나열될 수 있습니다 -->
-  <li>User 1</li>
-  <li>User 2</li>
-  <li>User 3</li>
-</ul>
+
+    <!-- Thymeleaf의 반복문을 사용하여 밴드 멤버 목록을 출력, 컨트롤러에서 데이터를 전달 받음 -->
+    <div>
+      <h2>밴드 멤버</h2>
+      <ul>
+        <!-- Thymeleaf의 반복문을 사용하여 밴드 멤버 목록을 출력 -->
+        <li th:each="member : ${bands}">
+          <span th:text="${member.name}"></span> <!-- 사용자 이름 출력 -->
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
 
 <script>
   // 자바스크립트 코드를 추가하여 필요한 기능을 구현할 수 있습니다.

@@ -1,44 +1,15 @@
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Dashboard</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Welcome to Dashboard</h1>-->
-<!--<p>Logged in as: <span th:text="${session.nickname}"></span></p> &lt;!&ndash; Display nickname from session &ndash;&gt;-->
-<!--<div th:if="${session.isBandMember != null && session.isBandMember}">-->
-<!--    <p>You are currently a member of a band.</p>-->
-<!--</div>-->
-<!--<div th:unless="${session.isBandMember != null && session.isBandMember}">-->
-<!--    <p>You are not currently a member of any band. Would you like to join a band?</p>-->
-<!--    <form action="/login/band-join-request" method="GET"> &lt;!&ndash; Band join request form &ndash;&gt;-->
-<!--        <input type="submit" value="Join a Band">-->
-<!--    </form>-->
-<!--</div>-->
-<!--<p>Would you like to update the instruments you play?</p>-->
-<!--<form action="/login/register-instruments" method="GET"> &lt;!&ndash; Register instruments form &ndash;&gt;-->
-<!--    <input type="submit" value="Register Instruments">-->
-<!--</form>-->
-<!--<form action="/logout" method="POST"> &lt;!&ndash; Logout form &ndash;&gt;-->
-<!--    <input type="submit" value="Logout">-->
-<!--</form>-->
-<!--<button onclick="location.href='/specific-url'">Go to Specific URL</button> &lt;!&ndash; Button to go to specific URL &ndash;&gt;-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>대시보드</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('/img/board.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
@@ -46,56 +17,66 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            color: #fff; /* 텍스트 색상을 화이트로 변경 */
         }
         h1 {
-            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
-            font-size: 32px;
             text-transform: uppercase;
         }
         p {
-            color: #666;
-            margin-bottom: 10px;
             font-size: 18px;
+            margin-bottom: 10px;
+            text-align: center; /* 텍스트 가운데 정렬 */
+        }
+        p.highlighted {
+            color: #2E8B57;
         }
         form, button {
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
         input[type="submit"], button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
+            background-color: #4CAF50; /* 버튼 배경색 변경 */
+            color: #fff;
+            font-size: 16px;
             border: none;
             border-radius: 4px;
+            padding: 12px 20px;
             cursor: pointer;
-            font-size: 16px;
-            text-transform: uppercase;
             transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover, button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* 호버 시 배경색 변경 */
+        }
+        button {
+            background-color: #6A5ACD; /* 버튼 색상 변경 */
         }
     </style>
 </head>
 <body>
-<h1>Welcome to Dashboard</h1>
-<p>Logged in as: <span th:text="${session.nickname}"></span></p> <!-- Display nickname from session -->
+<h1>대시보드에 오신 것을 환영합니다</h1>
+<p>로그인한 사용자: <span th:text="${session.nickname}"></span></p>
 <div th:if="${session.isBandMember != null && session.isBandMember}">
-    <p>You are currently a member of a band.</p>
+    <p>현재 밴드의 구성원입니다.</p>
 </div>
 <div th:unless="${session.isBandMember != null && session.isBandMember}">
-    <p>You are not currently a member of any band. Would you like to join a band?</p>
-    <form action="/login/band-join-request" method="GET"> <!-- Band join request form -->
-        <input type="submit" value="Join a Band">
+    <p class="highlighted">현재 밴드의 구성원이 아닙니다. 밴드에 가입하시겠습니까?</p>
+    <form action="/login/band-join-request" method="GET">
+        <input type="submit" value="밴드 가입하기">
     </form>
 </div>
-<p>Would you like to update the instruments you play?</p>
-<form action="/login/register-instruments" method="GET"> <!-- Register instruments form -->
-    <input type="submit" value="Register Instruments">
+<p class="highlighted">연주하는 악기를 등록하시겠습니까?</p>
+<form action="/login/register-instruments" method="GET">
+    <input type="submit" value="악기 등록하기">
 </form>
-<form action="/logout" method="POST"> <!-- Logout form -->
-    <input type="submit" value="Logout">
+<form action="/logout" method="POST">
+    <input type="submit" value="로그아웃">
 </form>
-<button onclick="location.href='/specific-url'">Go to Specific URL</button> <!-- Button to go to specific URL -->
+<button onclick="location.href='/specific-url'">특정 URL로 이동하기</button>
 </body>
 </html>
