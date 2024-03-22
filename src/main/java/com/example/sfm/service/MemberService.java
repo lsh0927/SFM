@@ -18,21 +18,21 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member){
-        validateDuplicateMember(member);
+    //    validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getMemberId();
     }
 
-    private void validateDuplicateMember(Member member) {
-        List<Member> findMembers= memberRepository.findByName(member.getName());
-        Member findEmail= memberRepository.findByEmail(member.getEmail());
-
-        //합쳐서 비교하는 로직 수정 필요
-       if (!findMembers.isEmpty()){
-           throw new RuntimeException("이미 존재하는 회원입니다");
-       }
-
-    }
+//    private void validateDuplicateMember(Member member) {
+//        List<Member> findMembers= memberRepository.findByName(member.getName());
+//        Member findEmail= memberRepository.findByEmail(member.getEmail());
+//
+//        //합쳐서 비교하는 로직 수정 필요
+//       if (!findMembers.isEmpty()){
+//           throw new RuntimeException("이미 존재하는 회원입니다");
+//       }
+//
+//    }
 
  //   @Transactional
     public Member findOne(Long memberId){

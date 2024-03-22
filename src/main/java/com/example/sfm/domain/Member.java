@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor@Setter
@@ -31,4 +34,7 @@ public class Member {
     //밴드에서의 역할: 밴드장, 밴드원
     @Enumerated(EnumType.STRING)
     private BandRole bandRole;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<JoinRequest> joinRequests = new ArrayList<>();
 }

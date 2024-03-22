@@ -53,7 +53,7 @@ public class MemberController {
         // 악기 정보를 회원의 정보에 업데이트한다
         memberService.updateMemberSession(member,instrument);
 
-        return "SFMHomepage"; // 혹은 다른 적절한 리다이렉션 경로
+        return "dashboard"; // 혹은 다른 적절한 리다이렉션 경로
     }
 
 }
