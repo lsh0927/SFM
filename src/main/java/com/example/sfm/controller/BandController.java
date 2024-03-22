@@ -37,20 +37,17 @@ public class BandController {
         // 가져온 회원의 식별자를 사용하여 데이터베이스에서 해당 회원의 정보를 가져온다
         Member member = memberService.findMemberByEmail(userEmail);
 
-
         Band newBand= new Band();
         newBand.setBandName(band);
 
         // 악기 정보를 회원의 정보에 업데이트한다
         bandService.join(newBand);
-        //   member.setBand(newBand);
         memberService.updateMemberBand(member,newBand);
         //이걸 한번에 할 수 있는 방법이 있었는데, 연관관계 편의 메서드?
+        //일단 나중에 ㅋㅋ
+
+
 
         return "homepage";
     }
-
-
-
-
 }
