@@ -35,18 +35,8 @@ public class BandService {
 
     }
 
-    public String findBand(Long bandId){
-        Band band= bandRepository.findById(bandId)
-                .orElseThrow(()-> new RuntimeException("BAND_NOT_FOUND"));
-        return band.getBandName();
-    }
 
-    @Transactional
-    public void updateBand(Long bandId, String newBandName){
-        Band band= bandRepository.findById(bandId).get();
-        band.setBandName(newBandName);
 
-    }
 
     public List<Band> findAll(){
         return bandRepository.findAll();
@@ -62,8 +52,7 @@ public class BandService {
         return false;
     }
 
-    public void joinBand(Member member) {
-    }
+
 
     public Band findBandByName(Band newBand) {
         return bandRepository.findByBandName(newBand.getBandName());

@@ -9,7 +9,10 @@ import com.example.sfm.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,9 +51,27 @@ public class BandController {
         memberService.updateMemberBand(member,newBand);
         //이걸 한번에 할 수 있는 방법이 있었는데, 연관관계 편의 메서드?
         //일단 나중에 ㅋㅋ
-
-
-
-        return "SFMHomepage";
+        return  "redirect:/login/band-management";
     }
+
+
+
+
+    @GetMapping("/band-management")
+    public String goBandManagementPage(HttpSession session, Model model) {
+        String userEmail = (String) session.getAttribute("email");
+        Member member = memberService.findMemberByEmail(userEmail);
+
+        // 해당 멤버가 밴드장인지 확인
+        if (member.getBandRole() == BandRole.LEADER) {
+//            // 밴드장인 경우에만 페이지에 접근하도록
+//            List<Band> bands = bandService.findBandByName(member);
+//            model.addAttribute("bands", bands);
+            return "band/manageBand";
+        } else {
+            // 밴드장이 아닌 경우에는 다른 페이지로 리다이렉트 또는 에러 페이지 표시
+            return "redirect:/homepage"; // 예시로 홈페이지로 리다이렉트
+        }
+    }
+
 }
