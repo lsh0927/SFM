@@ -16,11 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BandService {
 
-    private BandRepository bandRepository;
+    private final BandRepository bandRepository;
 
-    public BandService(BandRepository bandRepository) {
-        this.bandRepository = bandRepository;
-    }
 
     @Transactional
     public void join(Band band){
@@ -30,8 +27,8 @@ public class BandService {
     }
 
     private void validateDuplicateBand(Band band) {
-        List<Band> bandNamelist = bandRepository.findByBandName(band.getBandName());
-        if (!bandNamelist.isEmpty())
+        Band findBand= bandRepository.findByBandName(band.getBandName());
+        if (findBand!=null)
         {
             throw new RuntimeException("이미 존재하는 밴드 명입니다");
         }
@@ -66,5 +63,9 @@ public class BandService {
     }
 
     public void joinBand(Member member) {
+    }
+
+    public Band findBandByName(Band newBand) {
+        return bandRepository.findByBandName(newBand.getBandName());
     }
 }

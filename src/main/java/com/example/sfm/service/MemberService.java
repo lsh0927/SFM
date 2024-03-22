@@ -1,5 +1,6 @@
 package com.example.sfm.service;
 
+import com.example.sfm.domain.Band;
 import com.example.sfm.domain.Member;
 import com.example.sfm.repository.MemberRepository;
 import jakarta.servlet.http.HttpSession;
@@ -81,6 +82,12 @@ public class MemberService {
 
         member.setSession(instrument);
         memberRepository.save(member);
+    }
+    @Transactional
+    public void updateMemberBand(Member member, Band band) {
+        member.setBand(band);
+        memberRepository.save(member);
+
     }
 
 //    public void updateMember(Member member) {
