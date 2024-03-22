@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Band Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    /* 애니메이션 효과 예시 */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* 예시: 밴드 가입 요청 목록에 애니메이션 효과 적용 */
+    ul li {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+<h1>Band Management Page</h1>
+<h2>Band Join Requests</h2>
+<ul>
+  <!-- 여기에 밴드 가입 요청 목록이 나열될 수 있습니다 -->
+  <li>
+    <span>Band Name: </span>
+    <span>User Name: </span>
+    <button onclick="acceptJoinRequest()">Accept</button>
+    <button onclick="rejectJoinRequest()">Reject</button>
+  </li>
+</ul>
+
+<h2>Band Members</h2>
+<ul>
+  <!-- 여기에 밴드 멤버 목록이 나열될 수 있습니다 -->
+  <li>User 1</li>
+  <li>User 2</li>
+  <li>User 3</li>
+</ul>
+
+<script>
+  // 자바스크립트 코드를 추가하여 필요한 기능을 구현할 수 있습니다.
+  function acceptJoinRequest() {
+    // 밴드 가입 요청을 수락하는 기능을 구현합니다.
+  }
+
+  function rejectJoinRequest() {
+    // 밴드 가입 요청을 거절하는 기능을 구현합니다.
+  }
+</script>
+</body>
+</html>

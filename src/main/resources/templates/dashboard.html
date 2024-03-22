@@ -1,5 +1,7 @@
+
+
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -12,21 +14,68 @@
 <!--    <p>You are currently a member of a band.</p>-->
 <!--</div>-->
 <!--<div th:unless="${session.isBandMember != null && session.isBandMember}">-->
-<!--    <p>You are not currently a member of any band.</p>-->
+<!--    <p>You are not currently a member of any band. Would you like to join a band?</p>-->
+<!--    <form action="/login/band-join-request" method="GET"> &lt;!&ndash; Band join request form &ndash;&gt;-->
+<!--        <input type="submit" value="Join a Band">-->
+<!--    </form>-->
 <!--</div>-->
+<!--<p>Would you like to update the instruments you play?</p>-->
+<!--<form action="/login/register-instruments" method="GET"> &lt;!&ndash; Register instruments form &ndash;&gt;-->
+<!--    <input type="submit" value="Register Instruments">-->
+<!--</form>-->
 <!--<form action="/logout" method="POST"> &lt;!&ndash; Logout form &ndash;&gt;-->
 <!--    <input type="submit" value="Logout">-->
 <!--</form>-->
 <!--<button onclick="location.href='/specific-url'">Go to Specific URL</button> &lt;!&ndash; Button to go to specific URL &ndash;&gt;-->
 <!--</body>-->
 <!--</html>-->
-
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 32px;
+            text-transform: uppercase;
+        }
+        p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        form, button {
+            margin-top: 20px;
+        }
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <h1>Welcome to Dashboard</h1>

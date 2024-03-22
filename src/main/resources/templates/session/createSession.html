@@ -1,24 +1,103 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>악기 선택</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>악기 선택</h1>-->
+<!--<form action="/login/register-instruments" method="post">-->
+<!--  <label for="instrument">악기를 선택하세요:</label>-->
+<!--  <select id="instrument" name="instrument">-->
+<!--    <option value="vocal">보컬</option>-->
+<!--    <option value="piano">피아노</option>-->
+<!--    <option value="electric">일렉</option>-->
+<!--    <option value="electric">통기타</option>-->
+<!--    <option value="bass">베이스</option>-->
+<!--    <option value="drums">드럼</option>-->
+<!--  </select>-->
+<!--  <br>-->
+<!--  <input type="submit" value="제출">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>악기 선택</title>
+  <title>Register Instruments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 32px;
+      text-transform: uppercase;
+    }
+    form {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    label {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-<h1>악기 선택</h1>
+<h1>Register Instruments</h1>
 <form action="/login/register-instruments" method="post">
-  <label for="instrument">악기를 선택하세요:</label>
+  <label for="instrument">Select an instrument:</label>
   <select id="instrument" name="instrument">
-    <option value="vocal">보컬</option>
-    <option value="piano">피아노</option>
-    <option value="electric">일렉</option>
-    <option value="electric">통기타</option>
-    <option value="bass">베이스</option>
-    <option value="drums">드럼</option>
+    <option value="vocal">Vocal</option>
+    <option value="piano">Piano</option>
+    <option value="electric">Electric Guitar</option>
+    <option value="acoustic">Acoustic Guitar</option>
+    <option value="bass">Bass</option>
+    <option value="drums">Drums</option>
   </select>
-  <br>
-  <input type="submit" value="제출">
+  <input type="submit" value="Submit">
 </form>
 </body>
 </html>
