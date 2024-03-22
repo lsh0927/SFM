@@ -3,6 +3,7 @@ package com.example.sfm.controller;
 import com.example.sfm.domain.Band;
 
 import com.example.sfm.domain.BandRole;
+import com.example.sfm.domain.JoinRequest;
 import com.example.sfm.domain.Member;
 import com.example.sfm.service.BandService;
 import com.example.sfm.service.MemberService;
@@ -56,7 +57,8 @@ public class BandController {
 
 
 
-
+    //getmapping으로 데이터를 받는게 아니라, html로 데이터를 보내는 로직은 보안상 문제가 없다고 생각
+    // 이 접근이 맞나?
     @GetMapping("/band-management")
     public String goBandManagementPage(HttpSession session, Model model) {
         String userEmail = (String) session.getAttribute("email");
@@ -64,13 +66,27 @@ public class BandController {
 
         // 해당 멤버가 밴드장인지 확인
         if (member.getBandRole() == BandRole.LEADER) {
-//            // 밴드장인 경우에만 페이지에 접근하도록
-//            List<Band> bands = bandService.findBandByName(member);
-//            model.addAttribute("bands", bands);
+
+            //지연 로딩으로 인한 에러발생
+            //동적 쿼리 사용 -> 원리를 몰라서 나중에 다시 정리
+            Band band = bandService.findBandWithMembers(member.getBand().getBandId());
+
+            List<Member> members = band.getMembers();
+            System.out.println("이 밴드에 있는 멤버들");
+            for (int i=0;i<members.size();i++){
+                System.out.println(members.get(i).getName());
+            }
+
+            List<JoinRequest> joinRequests = bandService.getJoinRequestsForBand(band.getBandId());
+
+            model.addAttribute("bands", members);
+            model.addAttribute("bandName", band.getBandName()); // 밴드 이름 추가
+            model.addAttribute("joinRequests", joinRequests); // 밴드 가입 요청 목록 추가
+
             return "band/manageBand";
         } else {
             // 밴드장이 아닌 경우에는 다른 페이지로 리다이렉트 또는 에러 페이지 표시
-            return "redirect:/homepage"; // 예시로 홈페이지로 리다이렉트
+            return "dashboard"; // 예시로 홈페이지로 리다이렉트
         }
     }
 

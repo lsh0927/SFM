@@ -49,6 +49,10 @@ public class HomeController {
             HttpSession session = request.getSession();
             session.setAttribute("email", userInfo.get("email")); // 키 값을 "email"로 변경
             session.setAttribute("nickname", userInfo.get("nickname"));
+
+            // 로그아웃시에 엑세스토큰으로 요청을 보내야 함
+            session.setAttribute("accessToken", accessToken); // 엑세스 토큰 저장
+
             // 사용자 정보 DB에 저장
             Member member = new Member();
             member.setName((String) userInfo.get("nickname"));
@@ -65,7 +69,15 @@ public class HomeController {
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session){
         ModelAndView mav= new ModelAndView();
+        System.out.println("로그아웃 중");
+        String s= (String)session.getAttribute("accessToken");
+        System.out.println(s);
+        //여기서 엑세스 토큰을 못받아옴...
+        // 어케하지?
+        System.out.println(session);
+
         kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
+
         session.removeAttribute("accessToken");
         session.removeAttribute("userId");
         mav.setViewName("index");

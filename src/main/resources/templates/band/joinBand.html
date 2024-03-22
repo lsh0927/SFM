@@ -7,33 +7,37 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-image: url('/img/board.jpg');
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
         }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 32px;
-            text-transform: uppercase;
-        }
-        form {
+        .container {
             background-color: #fff;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 300px;
+            text-align: center; /* 제목과 폼을 가운데 정렬하기 위해 추가 */
+        }
+        h1 {
+            color: #333;
+            margin-top: 0; /* h1 요소의 상단 여백을 0으로 설정하여 맨 위에 위치시킴 */
+            font-size: 32px;
+            text-transform: uppercase;
+            margin-bottom: 20px; /* 폼과 제목 사이의 간격 조정 */
         }
         label {
             color: #666;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 라벨 사이의 간격 조정 */
             display: block;
+            text-align: left; /* 라벨을 왼쪽으로 정렬 */
         }
         input[type="text"], select {
             width: 100%;
@@ -54,6 +58,7 @@
             font-size: 16px;
             text-transform: uppercase;
             transition: background-color 0.3s ease;
+            width: 100%;
         }
         input[type="submit"]:hover {
             background-color: #45a049;
@@ -61,18 +66,20 @@
     </style>
 </head>
 <body>
-<h1>Join a Band</h1>
-<form action="/login/band-join-request" method="POST">
-    <label for="bandName">Band Name:</label>
-    <input type="text" id="bandName" name="band" required>
+<div class="container">
+    <h1>Join a Band</h1> <!-- 제목을 폼 위로 이동시켰습니다. -->
+    <form action="/login/band-join-request" method="POST">
+        <label for="bandName">Band Name:</label>
+        <input type="text" id="bandName" name="band" required>
 
-    <label for="role">Role:</label>
-    <select id="role" name="role">
-        <option value="LEADER">Band Leader</option>
-        <option value="MEMBER">Band Member</option>
-    </select>
+        <label for="role">Role:</label>
+        <select id="role" name="role">
+            <option value="LEADER">Band Leader</option>
+            <option value="MEMBER">Band Member</option>
+        </select>
 
-    <input type="submit" value="Join Band">
-</form>
+        <input type="submit" value="Join Band">
+    </form>
+</div>
 </body>
 </html>
