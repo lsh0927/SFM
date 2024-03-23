@@ -80,7 +80,7 @@
         <!-- 여기에 밴드 가입 요청 목록이 나열될 수 있습니다 -->
         <li th:each="request : ${joinRequests}">
           <span>밴드 이름: <span th:text="${bandName}"></span></span>
-          <span>사용자 이름: <span th:text="${request.}"></span></span>
+          <span>사용자 이름: <span th:text="${request}"></span></span>
           <button onclick="acceptJoinRequest()">수락</button>
           <button onclick="rejectJoinRequest()">거절</button>
         </li>
