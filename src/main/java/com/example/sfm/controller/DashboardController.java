@@ -24,11 +24,11 @@ public class DashboardController {
     public String dashboard(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         System.out.println("유저 이메일입니다=");
-        String userId = (String) session.getAttribute("email"); // 키 값을 "email"로 변경
-        System.out.println(userId);
-        if (userId != null) {
+        String email = (String) session.getAttribute("email"); // 키 값을 "email"로 변경
+        System.out.println(email);
+        if (email != null) {
             // 세션에서 가져온 사용자 정보를 기반으로 DB에서 추가 정보를 가져온다.
-            Member member = memberService.findMemberById(userId);
+            Member member = memberService.findMemberById(email);
             if (member != null) {
                 // 사용자가 밴드 회원인지 확인하고, 모델에 추가한다.
                 boolean isBandMember = bandService.isUserBandMember(member);
@@ -38,7 +38,8 @@ public class DashboardController {
             }
             // 대시보드 페이지로 이동한다.
             return "dashboard";
-        } else {
+        }
+        else {
             // 로그인되지 않은 경우에는 로그인 페이지로 리다이렉트한다.
             return "index";
         }
