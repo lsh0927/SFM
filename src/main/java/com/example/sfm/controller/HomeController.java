@@ -34,11 +34,6 @@ public class HomeController {
     KakaoApi kakaoApi= new KakaoApi();
 
 
-    @GetMapping("/")
-    public String page(Model model) {
-        return "index"; // 로그인 폼 템플릿 이름
-    }
-
     @RequestMapping(value = "/login")
     public void login(@RequestParam("code") String code, HttpServletRequest request,
                         HttpServletResponse response) throws IOException {
@@ -75,7 +70,11 @@ public class HomeController {
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session){
         ModelAndView mav= new ModelAndView();
-
+        System.out.println("로그아웃 중");
+        String s= (String)session.getAttribute("accessToken");
+        System.out.println(s);
+        //여기서 엑세스 토큰을 못받아옴...
+        // 어케하지?
         kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
 
         session.removeAttribute("accessToken");
