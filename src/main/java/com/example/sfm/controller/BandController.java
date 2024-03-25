@@ -47,7 +47,7 @@ public class BandController {
         // 메서드 내에서 직접 변환
         BandRole role = BandRole.valueOf(roleStr.toUpperCase());
         member.setBandRole(role);
-        // 악기 정보를 회원의 정보에 업데이트한다
+        // 밴드 정보를 회원의 정보에 업데이트한다
         bandService.join(newBand);
         memberService.updateMemberBand(member,newBand);
         //이걸 한번에 할 수 있는 방법이 있었는데, 연관관계 편의 메서드?
@@ -68,7 +68,7 @@ public class BandController {
         if (member.getBandRole() == BandRole.LEADER) {
 
             //지연 로딩으로 인한 에러발생
-            //동적 쿼리 사용 -> 원리를 몰라서 나중에 다시 정리
+            //fetch 조인
             Band band = bandService.findBandWithMembers(member.getBand().getBandId());
 
             List<Member> members = band.getMembers();
