@@ -1,0 +1,25 @@
+<!-- resources/templates/admin/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+
+<h2>Join Requests</h2>
+<ul>
+  <li th:each="joinRequest : ${joinRequests}">
+    <span th:text="${joinRequest.member.email}"></span> requests to join <span th:text="${joinRequest.bandName}"></span>
+  </li>
+</ul>
+
+<h2>Members</h2>
+<ul>
+  <li th:each="member : ${members}">
+    <span th:text="${member.email}"></span>
+  </li>
+</ul>
+</body>
+</html>

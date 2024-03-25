@@ -46,24 +46,32 @@ public class HomeController {
         System.out.println("login info: " +userInfo.toString());
         if (userInfo.get("email")!=null)
         {
+            if (memberService.findMemberByEmail((String) userInfo.get("email"))==null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("email", userInfo.get("email")); // 키 값을 "email"로 변경
+                session.setAttribute("nickname", userInfo.get("nickname"));
 
-            HttpSession session = request.getSession();
-            session.setAttribute("email", userInfo.get("email")); // 키 값을 "email"로 변경
-            session.setAttribute("nickname", userInfo.get("nickname"));
+                // 로그아웃시에 엑세스토큰으로 요청을 보내야 함
+                session.setAttribute("accessToken", accessToken); // 엑세스 토큰 저장
 
-            // 로그아웃시에 엑세스토큰으로 요청을 보내야 함
-            session.setAttribute("accessToken", accessToken); // 엑세스 토큰 저장
+                // 사용자 정보 DB에 저장
+                Member member = new Member();
+                member.setName((String) userInfo.get("nickname"));
+                member.setEmail((String) userInfo.get("email"));
+                memberService.join(member);
+                //리다이렉션
+                response.sendRedirect("/login/dashboard");
+            }
+            else {
+                HttpSession session = request.getSession();
+                session.setAttribute("email", userInfo.get("email")); // 키 값을 "email"로 변경
+                session.setAttribute("nickname", userInfo.get("nickname"));
 
-            // 사용자 정보 DB에 저장
-            Member member = new Member();
-            member.setName((String) userInfo.get("nickname"));
-            member.setEmail((String) userInfo.get("email"));
-            memberService.join(member);
+                // 로그아웃시에 엑세스토큰으로 요청을 보내야 함
+                session.setAttribute("accessToken", accessToken); // 엑세스 토큰 저장
 
-
-            //리다이렉션
-            response.sendRedirect("/login/dashboard");
-
+                response.sendRedirect("/login/dashboard");
+            }
         }
     }
 
@@ -77,8 +85,12 @@ public class HomeController {
         // 어케하지?
         kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
 
-        session.removeAttribute("accessToken");
-        session.removeAttribute("userId");
+//        session.removeAttribute("accessToken");
+//        session.removeAttribute("userId");
+
+        // 세션 무효화
+        session.invalidate();
+
         mav.setViewName("index");
         return mav;
     }
