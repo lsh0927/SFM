@@ -5,6 +5,7 @@ import com.example.sfm.domain.Band;
 import com.example.sfm.domain.BandRole;
 import com.example.sfm.domain.JoinRequest;
 import com.example.sfm.domain.Member;
+import com.example.sfm.repository.JoinRequestRepository;
 import com.example.sfm.service.BandService;
 import com.example.sfm.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -14,12 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("login")
 public class BandController {
 
+    private final JoinRequestRepository joinRequestRepository;
     private final BandService bandService;
     private final MemberService memberService;
 
@@ -89,9 +92,6 @@ public class BandController {
 
             List<JoinRequest> joinRequests = bandService.getJoinRequestsForBand(band.getBandId());
 
-
-
-
             model.addAttribute("bands", members);
             model.addAttribute("bandName", band.getBandName()); // 밴드 이름 추가
             model.addAttribute("joinRequests", joinRequests); // 밴드 가입 요청 목록 추가
@@ -105,4 +105,20 @@ public class BandController {
         }
     }
 
+
+    @GetMapping("/band-join-request")
+    public String gobandJoinRequest(Model model){
+        model.addAttribute("joinRequest", new JoinRequest());
+        return "band/joinBand";
+    }
+
+    @PostMapping("/band-join-request")
+    public String bandJoinRequest(@ModelAttribute("joinRequest") JoinRequest joinRequest, HttpSession session){
+        Member member= (Member) session.getAttribute("member");
+        joinRequest.setMember(member);
+
+        //가입 요청 저장
+        joinRequestRepository.save(joinRequest);
+        return "dashboard";
+    }
 }

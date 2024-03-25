@@ -54,8 +54,8 @@ public class BandService {
 
 
 
-    public Band findBandByName(Band newBand) {
-        return bandRepository.findByBandName(newBand.getBandName());
+    public Band findBandByName(String bandName) {
+        return bandRepository.findByBandName(bandName);
     }
 
 

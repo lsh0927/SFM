@@ -10,7 +10,8 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor@Setter
+@NoArgsConstructor
+@Setter
 
 public class Member {
 
