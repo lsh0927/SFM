@@ -43,6 +43,7 @@ public class MemberController {
     public String goInstrumentsJoinPage(){
         return "session/createSession";
     }
+
     @PostMapping("/register-instruments")
     public String registerInstruments(
             @RequestParam("instrument") String instrument,

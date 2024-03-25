@@ -19,4 +19,7 @@ public class Band {
     private List<Member> members= new ArrayList<>();
 
 
+    @OneToOne
+    @JoinColumn(name = "request_id")
+    private JoinRequest joinRequest;
 }

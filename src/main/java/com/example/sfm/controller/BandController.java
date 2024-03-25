@@ -90,7 +90,7 @@ public class BandController {
 //                System.out.println(members.get(i).getName());
 //            }
 
-            List<JoinRequest> joinRequests = bandService.getJoinRequestsForBand(band.getBandId());
+            JoinRequest joinRequests = bandService.getJoinRequestsForBand(band.getBandId());
 
             model.addAttribute("bands", members);
             model.addAttribute("bandName", band.getBandName()); // 밴드 이름 추가
@@ -113,12 +113,69 @@ public class BandController {
     }
 
     @PostMapping("/band-join-request")
-    public String bandJoinRequest(@ModelAttribute("joinRequest") JoinRequest joinRequest, HttpSession session){
-        Member member= (Member) session.getAttribute("member");
-        joinRequest.setMember(member);
+    public String bandJoinRequest(@RequestParam("bandName") String bandName, HttpSession session,Model model){
+        String userEmail = (String) session.getAttribute("email");
+        Member member = memberService.findMemberByEmail(userEmail);
 
+        JoinRequest joinRequest= new JoinRequest();
+
+
+        joinRequest.setMember(member);
+        joinRequest.setBandName(bandName);
+        joinRequest.setAccepted(false);
+        joinRequest.setProceed(true);
+
+        System.out.println( "member " + member + "님이 가입요청한 밴드는" + bandName + "입니다.");
+
+        Band findBand = bandService.findBandByName(bandName);
+        joinRequest.setBand(findBand);
+
+        //근데 멤버에 저장을 해야하나...?
         //가입 요청 저장
         joinRequestRepository.save(joinRequest);
-        return "dashboard";
+        memberService.updateJoinRequest(member,joinRequest);
+
+        //요청을 보냈으니 대시보드로 돌아갈때는 가입 신청이 완료되었다는 문구가 있으면 좋을듯
+        session.setAttribute("isProceed",true);
+        model.addAttribute("isProceed",session.getAttribute("isProceed"));
+
+
+        return "redirect:/login/dashboard"; // 적절한 리다이렉션 경로로 수정
+
+//        return "dashboard";
+    }
+    @PostMapping("/band-join-request/accept/{requestId}")
+    public String acceptJoinRequest(@PathVariable Long requestId) {
+        // 요청 ID를 통해 가입 요청 정보를 가져옴
+        JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElse(null);
+
+        if (joinRequest != null) {
+            // 가입 요청을 수락하고 밴드 멤버로 추가하는 로직
+            // ...
+
+            // 가입 요청 수락 여부를 업데이트하고 저장
+            joinRequest.setAccepted(true);
+            joinRequestRepository.save(joinRequest);
+        }
+
+        // 밴드 관리 페이지로 리다이렉트 또는 다른 적절한 경로로 리다이렉트
+        return "redirect:/login/band-management";
+    }
+    @PostMapping("/band-join-request/reject/{requestId}")
+    public String rejectJoinRequest(@PathVariable Long requestId) {
+        // 요청 ID를 통해 가입 요청 정보를 가져옴
+        JoinRequest joinRequest = joinRequestRepository.findById(requestId).orElse(null);
+
+        if (joinRequest != null) {
+            // 가입 요청 거부 로직
+            // ...
+
+            // 가입 요청 수락 여부를 업데이트하고 저장
+            joinRequest.setAccepted(false);
+            joinRequestRepository.save(joinRequest);
+        }
+
+        // 밴드 관리 페이지로 리다이렉트 또는 다른 적절한 경로로 리다이렉트
+        return "redirect:/login/band-management";
     }
 }

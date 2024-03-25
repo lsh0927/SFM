@@ -64,7 +64,7 @@ public class BandService {
         return bandRepository.findBandWithMembers(bandId);
     }
 
-    public List<JoinRequest> getJoinRequestsForBand(Long Id) {
-        return joinRequestRepository.findJoinRequestsById(Id);
+    public JoinRequest getJoinRequestsForBand(Long Id) {
+        return joinRequestRepository.findJoinRequestsByRequestId(Id);
     }
 }

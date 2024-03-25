@@ -94,16 +94,23 @@
 </div>
 
 
-<!-- 세션에 밴드 가입 여부가 false인 경우 -->
+<!-- 세션에 밴드 가입 여부가 false이고 가입 요청이 진행 중인 경우 -->
 <div th:unless="${session.isBandMember}">
-    <p class="highlighted">밴드에 가입하시겠습니까?</p>
-    <form action="/login/band-join-request" method="GET">
-        <input type="submit" value="밴드 가입하기">
-    </form>
-    <p class="highlighted">새로운 밴드를 만드시겠습니까?</p>
-    <form action="/login/band-create" method="GET">
-        <input type="submit" value="밴드 생성하기">
-    </form>
+    <!-- 가입 요청이 진행 중인지 확인 -->
+    <div th:if="${session.isProceed}">
+        <p class="highlighted">가입 진행중입니다.</p>
+    </div>
+    <!-- 가입 요청이 진행 중이 아닌 경우 -->
+    <div th:unless="${session.isProceed}">
+        <p class="highlighted">밴드에 가입하시겠습니까?</p>
+        <form action="/login/band-join-request" method="GET">
+            <input type="submit" value="밴드 가입하기">
+        </form>
+        <p class="highlighted">새로운 밴드를 만드시겠습니까?</p>
+        <form action="/login/band-create" method="GET">
+            <input type="submit" value="밴드 생성하기">
+        </form>
+    </div>
 </div>
 
 

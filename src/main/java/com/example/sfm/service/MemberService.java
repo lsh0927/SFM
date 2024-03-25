@@ -1,6 +1,7 @@
 package com.example.sfm.service;
 
 import com.example.sfm.domain.Band;
+import com.example.sfm.domain.JoinRequest;
 import com.example.sfm.domain.Member;
 import com.example.sfm.repository.MemberRepository;
 import jakarta.servlet.http.HttpSession;
@@ -83,6 +84,11 @@ public class MemberService {
         member.setBand(band);
         memberRepository.save(member);
 
+    }
+
+    public void updateJoinRequest(Member member, JoinRequest joinRequest) {
+        member.setJoinRequest(joinRequest);
+        memberRepository.save(member);
     }
 
 //    public void updateMember(Member member) {

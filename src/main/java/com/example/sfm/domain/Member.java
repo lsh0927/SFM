@@ -36,6 +36,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private BandRole bandRole;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<JoinRequest> joinRequests = new ArrayList<>();
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "request_id")
+    private JoinRequest joinRequest;
 }
