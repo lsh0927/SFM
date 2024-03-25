@@ -61,19 +61,73 @@
 <body>
 <h1>대시보드에 오신 것을 환영합니다</h1>
 <p>로그인한 사용자: <span th:text="${session.nickname}"></span></p>
-<div th:if="${session.isBandMember != null && session.isBandMember}">
-    <p>현재 밴드의 구성원입니다.</p>
+
+
+<!--&lt;!&ndash;현재 맴버가 밴드에 소속되어 있을 경우 &ndash;&gt;-->
+<!--<div th:if="${session.isBandMember}">-->
+<!--    <p>현재 밴드의 구성원입니다.</p>-->
+<!--</div>-->
+
+<!--<div th:unless="${session.isBandMember}">-->
+<!--    <p class="highlighted">현재 밴드의 구성원이 아닙니다. 밴드에 가입하시겠습니까?</p>-->
+<!--    <form action="/login/band-join-request" method="GET">-->
+<!--        <input type="submit" value="밴드 가입하기">-->
+<!--    </form>-->
+<!--</div>-->
+
+<!-- 세션에 밴드 가입 여부 및 역할 확인 -->
+<div th:if="${session.isBandMember}">
+    <div th:switch="${session.Role}">
+        <!-- 리더인 경우 -->
+        <div th:case="'LEADER'">
+            <p th:text="' ' + ${session.nickname} + ' 님은 ' + ${JoinedBand} + '의 밴드장 입니다.'"></p>
+            <p>밴드 관리 페이지 또는 다른 관련 정보를 표시합니다.</p>
+            <!-- 밴드 관리 페이지로 이동하는 버튼 -->
+            <form action="/login/band-management" method="GET">
+                <input type="submit" value="밴드 관리하기">
+            </form>
+        </div>
+        <!-- 일반 멤버인 경우 아무것도 표시하지 않음 -->
+        <p th:case="'MEMBER'"></p>
+
+    </div>
 </div>
-<div th:unless="${session.isBandMember != null && session.isBandMember}">
-    <p class="highlighted">현재 밴드의 구성원이 아닙니다. 밴드에 가입하시겠습니까?</p>
+
+
+<!-- 세션에 밴드 가입 여부가 false인 경우 -->
+<div th:unless="${session.isBandMember}">
+    <p class="highlighted">밴드에 가입하시겠습니까?</p>
     <form action="/login/band-join-request" method="GET">
         <input type="submit" value="밴드 가입하기">
     </form>
+    <p class="highlighted">새로운 밴드를 만드시겠습니까?</p>
+    <form action="/login/band-create" method="GET">
+        <input type="submit" value="밴드 생성하기">
+    </form>
 </div>
-<p class="highlighted">연주하는 악기를 등록하시겠습니까?</p>
-<form action="/login/register-instruments" method="GET">
-    <input type="submit" value="악기 등록하기">
-</form>
+
+
+
+
+<!-- 세션에 악기가 등록되어 있는지 확인 -->
+<div th:if="${session.hasInstrument}">
+    <p class="highlighted">연주하는 악기: <span th:text="${session.instrument}"></span></p>
+    <p class="highlighted">연주하는 악기를 수정하시겠습니까?</p>
+    <form action="/login/edit-instruments" method="GET">
+        <input type="submit" value="악기 수정하기">
+    </form>
+</div>
+
+<!-- 세션에 악기가 등록되어 있지 않은 경우 -->
+<div th:unless="${session.hasInstrument}">
+    <p class="highlighted">연주하는 악기를 등록하시겠습니까?</p>
+    <form action="/login/register-instruments" method="GET">
+        <input type="submit" value="악기 등록하기">
+    </form>
+</div>
+
+
+
 <form action="/logout" method="POST">
     <input type="submit" value="로그아웃">
 </form>

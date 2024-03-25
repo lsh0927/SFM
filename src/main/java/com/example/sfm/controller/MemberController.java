@@ -44,7 +44,9 @@ public class MemberController {
         return "session/createSession";
     }
     @PostMapping("/register-instruments")
-    public String registerInstruments(@RequestParam("instrument") String instrument, HttpSession session) {
+    public String registerInstruments(
+            @RequestParam("instrument") String instrument,
+            HttpSession session,Model model) {
 
         // 세션에서 회원의 식별자 가져옴
         String userEmail = (String) session.getAttribute("email");
@@ -53,7 +55,13 @@ public class MemberController {
         // 악기 정보를 회원의 정보에 업데이트한다
         memberService.updateMemberSession(member,instrument);
 
-        return "dashboard"; // 혹은 다른 적절한 리다이렉션 경로
+        //악기를 등록했으면 세션에 플래그를 설정
+        session.setAttribute("hasInstrument",true);
+        session.setAttribute("instrument",instrument);
+        model.addAttribute("hasInstrument", session.getAttribute("hasInstrument"));
+        model.addAttribute("instrument",session.getAttribute("instrument"));
+        //return "dashboard"; // 혹은 다른 적절한 리다이렉션 경로
+        return "redirect:/login/dashboard";
     }
 
 }

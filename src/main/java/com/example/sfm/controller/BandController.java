@@ -24,15 +24,15 @@ public class BandController {
     private final MemberService memberService;
 
     //@GetMapping으로 url이 왔을 때 보여줄 웹 페이지
-    @GetMapping("/band-join-request")
-    public String goJoinBandPage(){
-        return "band/joinBand";
+    @GetMapping("/band-create")
+    public String createBand(){
+        return "band/createBand";
     }
 
-    @PostMapping("/band-join-request")
-    public String bandJoinRequest(@RequestParam("band") String band,
+    @PostMapping("/band-create")
+    public String createBand(@RequestParam("band") String band,
                                   @RequestParam("role") String roleStr,
-                                  HttpSession session) {
+                                  HttpSession session,Model model) {
 
         // 세션에서 회원의 식별자를 가져온다
         String userEmail = (String) session.getAttribute("email");
@@ -52,7 +52,17 @@ public class BandController {
         memberService.updateMemberBand(member,newBand);
         //이걸 한번에 할 수 있는 방법이 있었는데, 연관관계 편의 메서드?
         //일단 나중에 ㅋㅋ
-        return  "redirect:/login/band-management";
+
+
+        //밴드를 등록했으면 세션 및 모델에 값 추가
+        session.setAttribute("Role", roleStr);
+        session.setAttribute("isBandMember",true);
+        session.setAttribute("JoinedBand",band);
+        model.addAttribute("isBandMember", session.getAttribute("isBandMember"));
+        model.addAttribute("JoinedBand",session.getAttribute("JoinedBand"));
+        model.addAttribute("Role",session.getAttribute("Role"));
+
+        return  "dashboard";
     }
 
 
@@ -72,16 +82,21 @@ public class BandController {
             Band band = bandService.findBandWithMembers(member.getBand().getBandId());
 
             List<Member> members = band.getMembers();
-            System.out.println("이 밴드에 있는 멤버들");
-            for (int i=0;i<members.size();i++){
-                System.out.println(members.get(i).getName());
-            }
+//            System.out.println("이 밴드에 있는 멤버들");
+//            for (int i=0;i<members.size();i++){
+//                System.out.println(members.get(i).getName());
+//            }
 
             List<JoinRequest> joinRequests = bandService.getJoinRequestsForBand(band.getBandId());
+
+
+
 
             model.addAttribute("bands", members);
             model.addAttribute("bandName", band.getBandName()); // 밴드 이름 추가
             model.addAttribute("joinRequests", joinRequests); // 밴드 가입 요청 목록 추가
+
+
 
             return "band/manageBand";
         } else {
