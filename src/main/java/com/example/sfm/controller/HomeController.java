@@ -85,11 +85,11 @@ public class HomeController {
         // 어케하지?
         kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
 
-//        session.removeAttribute("accessToken");
-//        session.removeAttribute("userId");
+        session.removeAttribute("accessToken");
+        session.removeAttribute("userId");
 
-        // 세션 무효화
-        session.invalidate();
+//        // 세션 무효화
+//        session.invalidate();
 
         mav.setViewName("index");
         return mav;

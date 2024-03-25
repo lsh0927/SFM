@@ -34,6 +34,7 @@ public class DashboardController {
                 boolean isBandMember = bandService.isUserBandMember(member);
                 model.addAttribute("isBandMember", isBandMember);
                 model.addAttribute("nickname", member.getName()); // 사용자 이름도 모델에 추가
+                model.addAttribute("JoinedBand",session.getAttribute("JoinedBand"));
 
             }
             // 대시보드 페이지로 이동한다.
