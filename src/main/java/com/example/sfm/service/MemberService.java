@@ -3,19 +3,34 @@ package com.example.sfm.service;
 import com.example.sfm.domain.Band;
 import com.example.sfm.domain.JoinRequest;
 import com.example.sfm.domain.Member;
+import com.example.sfm.dto.AddUserRequest;
 import com.example.sfm.repository.MemberRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private MemberRepository memberRepository;
+
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public Long save(AddUserRequest dto) {
+        return memberRepository.save(Member.builder()
+                .email(dto.getEmail())
+                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                .build()).getMemberId();
+    }
 
     @Transactional
     public Long join(Member member){
@@ -63,13 +78,13 @@ public class MemberService {
     }
 
 
-    public Member findMemberById(String userId) {
+    public Optional<Member> findMemberById(String userId) {
         return memberRepository.findByEmail(userId);
     }
 
 
 
-    public Member findMemberByEmail(String userEmail) {
+    public Optional<Member> findMemberByEmail(String userEmail) {
         return memberRepository.findByEmail(userEmail);
     }
 
@@ -89,6 +104,12 @@ public class MemberService {
     public void updateJoinRequest(Member member, JoinRequest joinRequest) {
         member.setJoinRequest(joinRequest);
         memberRepository.save(member);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(()-> new IllegalArgumentException(email));
     }
 
 //    public void updateMember(Member member) {
