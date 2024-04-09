@@ -15,13 +15,15 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+       (access = AccessLevel.PROTECTED)
 @Setter
 @Table(name = "users")
 public class Member implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private Long memberId;
 
     @Column(length = 10)

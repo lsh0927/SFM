@@ -18,19 +18,12 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService{
 
-    private MemberRepository memberRepository;
-
-
+    private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    //시큐리티 적용 코드
 
-    public Long save(AddUserRequest dto) {
-        return memberRepository.save(Member.builder()
-                .email(dto.getEmail())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
-                .build()).getMemberId();
-    }
 
     @Transactional
     public Long join(Member member){
@@ -39,16 +32,14 @@ public class MemberService implements UserDetailsService {
         return member.getMemberId();
     }
 
-//    private void validateDuplicateMember(Member member) {
-//        List<Member> findMembers= memberRepository.findByName(member.getName());
-//        Member findEmail= memberRepository.findByEmail(member.getEmail());
-//
-//        //합쳐서 비교하는 로직 수정 필요
-//       if (!findMembers.isEmpty()){
-//           throw new RuntimeException("이미 존재하는 회원입니다");
-//       }
-//
-//    }
+    //회원 가입 객체를 인수로 받는 회원 정보
+    public Long save(AddUserRequest dto){
+        return memberRepository.save(Member.builder()
+                .email(dto.getEmail())
+                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                .build()).getMemberId();
+    }
+
 
  //   @Transactional
     public Member findOne(Long memberId){
@@ -78,15 +69,15 @@ public class MemberService implements UserDetailsService {
     }
 
 
-    public Optional<Member> findMemberById(String userId) {
-        return memberRepository.findByEmail(userId);
-    }
-
-
-
-    public Optional<Member> findMemberByEmail(String userEmail) {
-        return memberRepository.findByEmail(userEmail);
-    }
+//    public Member findMemberById(String userId) {
+//        return memberRepository.findByEmail(userId);
+//    }
+//
+//
+//
+//    public Member findMemberByEmail(String userEmail) {
+//        return memberRepository.findByEmail(userEmail);
+//    }
 
     @Transactional
     public void updateMemberSession(Member member, String instrument) {
@@ -106,11 +97,11 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return memberRepository.findByEmail(email)
-                .orElseThrow(()-> new IllegalArgumentException(email));
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        return memberRepository.findByEmail(email)
+//                .orElseThrow(()-> new IllegalArgumentException(email));
+//    }
 
 //    public void updateMember(Member member) {
 //        memberRepository.

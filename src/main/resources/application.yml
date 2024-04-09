@@ -31,3 +31,10 @@ spring:
     jdbc:
       initialize-schema: always
       table-name: SPRING_SESSION
+#  security:
+#    expiration_time: 86400000
+#    secret:
+#  security:
+#    user:
+#      name: user
+#      password: 1234
