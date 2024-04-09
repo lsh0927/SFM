@@ -40,6 +40,11 @@ public class MemberService{
                 .build()).getMemberId();
     }
 
+    public Member findById(Long memberId){
+        return memberRepository.findById(memberId)
+                .orElseThrow(()-> new IllegalArgumentException("Unexpected user"));
+    }
+
 
  //   @Transactional
     public Member findOne(Long memberId){

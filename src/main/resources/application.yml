@@ -38,3 +38,6 @@ spring:
 #    user:
 #      name: user
 #      password: 1234
+jwt:
+  issuer: dltmdgjs.0927@daum.net
+  secret_key: study-springboot

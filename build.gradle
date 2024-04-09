@@ -42,6 +42,9 @@ dependencies {
 //Json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
+//    implementation 'jakarta.xml.bind:jaxb-api:2.3.1'
+
+
 //apple
     dependencies {  implementation 'com.google.code.gson:gson:2.8.7'}
     //naver
@@ -60,12 +63,14 @@ dependencies {
     implementation('org.springframework.session:spring-session-jdbc')
 
     //
-//    implementation('io.jsonwebtoken:jjwt-api:0.11.5')
-//    implementation('io.jsonwebtoken:jjwt-impl:0.11.5')
-//    implementation('io.jsonwebtoken:jjwt-jackson:0.11.5')
+    implementation('io.jsonwebtoken:jjwt-api:0.11.5')
+    implementation('io.jsonwebtoken:jjwt-impl:0.11.5')
+    implementation('io.jsonwebtoken:jjwt-jackson:0.11.5')
+
+    implementation ('javax.xml.bind:jaxb-api:2.3.1')
 
     //ModelMapper
-   // implementation 'org.modelmapper:modelmapper:2.4.2'
+    implementation 'org.modelmapper:modelmapper:2.4.2'
 
 
 }
